@@ -1,5 +1,6 @@
 namespace ClientServiceRazor;
-
+using Microsoft.EntityFrameworkCore;
+using ClientServiceRazor.Data;
 public class Program
 {
     public static void Main(string[] args)
@@ -8,6 +9,9 @@ public class Program
 
         // Add services to the container.
         builder.Services.AddRazorPages();
+        
+        builder.Services.AddDbContext<AppDbContext>(options => 
+            options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 
         var app = builder.Build();
 
